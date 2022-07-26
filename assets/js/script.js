@@ -69,7 +69,7 @@ function currentWeather(city) {
     });
   });
 }
-// Function for 5-Day Weather Forecast
+// Function for next 5-Day Weather Forecast
 function futureWeather(lat, lon) {
   var futureWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=current,minutely,hourly,alerts&appid=${apiKey}`;
   `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=current,minutely,hourly,alerts&appid=${apiKey}`;
@@ -89,8 +89,6 @@ function futureWeather(lat, lon) {
       };
       var currentDate = moment.unix(cityInfo.date).format("MM/DD/YYYY");
       var weatherIconURL = `<img src="https://openweathermap.org/img/w/${cityInfo.icon}.png" alt="${futureResponse.daily[i].weather[0].main}" />`;
-
-      // Display weather forecast for the next five days
       var futureWeatherCard = $(`
                 <div class="pl-3">
                 <div class="card pl-3 pt-3 mb-3 bg text-light" style="width: 12rem;>
@@ -109,7 +107,7 @@ function futureWeather(lat, lon) {
   });
 }
 
-// Display the the last searched city's weather conditions when the application is opened
+// Displayed last search history when window is reloaded
 $(document).ready(function () {
   var searchHistoryArray = JSON.parse(localStorage.getItem("city"));
   if (searchHistoryArray !== null) {
@@ -134,14 +132,11 @@ $("#searchBtn").on("click", function (event) {
     // Display search history/searched cities
     $("#searchHistory").append(searchedCity);
   }
-
+  $(document).on("click", ".list-group-item", function () {
+    var listCity = $(this).text();
+    currentWeather(listCity);
+  });
   // Searched cities are stored in localStorage
   localStorage.setItem("city", JSON.stringify(searchHistoryList));
   console.log(searchHistoryList);
-});
-
-// Display a city's current and future weather conditions when clicked from the search history list
-$(document).on("click", ".list-group-item", function () {
-  var listCity = $(this).text();
-  currentWeather(listCity);
 });
