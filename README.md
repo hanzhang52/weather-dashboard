@@ -2,7 +2,7 @@
 
 ## Description
 
-This weather dashboard was created using HTML, CSS, Javascript, along with OpenWeather API to extract the weather forcast, and using localStorage for storing any searched history. This webpage was made possible through moment.js, bootstrap, and cdnjs.
+This weather dashboard was created using HTML, CSS, and Javascript, along with OpenWeather API to extract the weather forecast and using localStorage for storing any searched history. This webpage was made possible through moment.js, bootstrap, and cdnjs.
 
 This webpage was designed to show the following content under the acceptance criteria:
 
@@ -10,9 +10,11 @@ This webpage was designed to show the following content under the acceptance cri
 
 ## ScreenShot
 
-![Screenshot 1]
+![Screenshot 1](./assets/images/screenshot.png)
 
 ## Link to deployed application:
+
+https://hanzhang52.github.io/weather-dashboard/
 
 ## License
 

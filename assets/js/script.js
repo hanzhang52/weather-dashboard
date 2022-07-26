@@ -1,10 +1,9 @@
-// API Key
-var apiKey = "8e4d04e79ab4b9b4a6616618bb966756";
-// Array search history
-var searchHistoryList = [];
 // Date using Moment.js
 var today = moment().format("L");
-
+// API Key
+var apiKey = "8e4d04e79ab4b9b4a6616618bb966756";
+// Array list history
+var searchHistoryList = [];
 // Function for current condition
 function currentWeather(city) {
   var currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
@@ -18,7 +17,7 @@ function currentWeather(city) {
     var iconCode = currentResponse.weather[0].icon;
     var weatherIconURL = `https://openweathermap.org/img/w/${iconCode}.png`;
 
-    // Displays current weather condition for seached cities
+    // Displays the current weather condition for seached cities
     var currentCity = $(`
             <h2 id="currentCity">
             ${currentResponse.name} ${today} <img src="${weatherIconURL}" alt="${currentResponse.weather[0].description}" />
@@ -29,7 +28,7 @@ function currentWeather(city) {
         `);
     $("#cityDetail").append(currentCity);
 
-    // Display current UV index
+    // UV index
     var lat = currentResponse.coord.lat;
     var lon = currentResponse.coord.lon;
     var URL = `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`;
@@ -48,8 +47,8 @@ function currentWeather(city) {
 
       futureWeather(lat, lon);
 
-      // Display UV index color to indicate condition
-      // Current condition can be favorable (0-2, green), moderate (3-5, yellow), or severe (6-7 orange; 8-10, red; 11+, violet)
+      // Display UV index color
+      // (0-2, green), moderate (3-5, yellow), or severe (6-7 orange; 8-10, red; 11+, violet)
       if (uvIndex >= 0 && uvIndex <= 2.99) {
         $("#uvIndexColor")
           .css("background-color", "#3ea72d")
@@ -70,7 +69,6 @@ function currentWeather(city) {
     });
   });
 }
-
 // Function for 5-Day Weather Forecast
 function futureWeather(lat, lon) {
   var futureWeatherURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=current,minutely,hourly,alerts&appid=${apiKey}`;
@@ -93,7 +91,6 @@ function futureWeather(lat, lon) {
       var weatherIconURL = `<img src="https://openweathermap.org/img/w/${cityInfo.icon}.png" alt="${futureResponse.daily[i].weather[0].main}" />`;
 
       // Display weather forecast for the next five days
-      // Future weather information includes weather icon, temperature, wind speed, and humidity
       var futureWeatherCard = $(`
                 <div class="pl-3">
                 <div class="card pl-3 pt-3 mb-3 bg text-light" style="width: 12rem;>
@@ -111,6 +108,17 @@ function futureWeather(lat, lon) {
     }
   });
 }
+
+// Display the the last searched city's weather conditions when the application is opened
+$(document).ready(function () {
+  var searchHistoryArray = JSON.parse(localStorage.getItem("city"));
+  if (searchHistoryArray !== null) {
+    var lastSearchedIndex = searchHistoryArray.length - 1;
+    var lastSearchedCity = searchHistoryArray[lastSearchedIndex];
+    currentWeather(lastSearchedCity);
+    console.log(`Last searched city: ${lastSearchedCity}`);
+  }
+});
 
 // Event listener
 $("#searchBtn").on("click", function (event) {
@@ -136,15 +144,4 @@ $("#searchBtn").on("click", function (event) {
 $(document).on("click", ".list-group-item", function () {
   var listCity = $(this).text();
   currentWeather(listCity);
-});
-
-// Display the the last searched city's weather conditions when the application is opened
-$(document).ready(function () {
-  var searchHistoryArray = JSON.parse(localStorage.getItem("city"));
-  if (searchHistoryArray !== null) {
-    var lastSearchedIndex = searchHistoryArray.length - 1;
-    var lastSearchedCity = searchHistoryArray[lastSearchedIndex];
-    currentWeather(lastSearchedCity);
-    console.log(`Last searched city: ${lastSearchedCity}`);
-  }
 });
