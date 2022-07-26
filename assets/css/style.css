@@ -1,0 +1,71 @@
+* {
+  box-sizing: border-box;
+}
+.navbar {
+  margin-top: 10px;
+  height: 70px;
+}
+
+h1 {
+  font-size: 200%;
+  font-weight: bold;
+  color: white;
+}
+
+h2,
+h3,
+h4,
+h5 {
+  font-weight: bolder;
+}
+
+h5 {
+  font-size: 130%;
+  font-weight: bolder;
+}
+
+/* Search column */
+.form-control {
+  border: gray solid 2px;
+}
+
+.btn {
+  margin-top: 15px;
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+}
+
+#searchHistory li {
+  margin-bottom: 12px;
+  background-color: rgb(187, 187, 187);
+  text-align: center;
+  border-radius: 5px;
+}
+
+#cityDetail,
+#uvIndexColor,
+li {
+  color: black;
+}
+
+#searchResults {
+  background-color: gray;
+  padding-top: 5px;
+  height: 100vh;
+}
+#cityDetail {
+  background-color: white;
+  border: black solid 1px;
+}
+
+.card {
+  background-color: white;
+  border: black solid 1px;
+}
+
+#fiveDay .card {
+  background-color: #5cccfa;
+  border: 1px solid black;
+  color: white;
+}
